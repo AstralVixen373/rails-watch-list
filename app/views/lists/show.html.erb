@@ -1,6 +1,9 @@
 <div class="container mt-4">
   <div class="d-flex justify-content-between align-items-center">
     <h1><%= @list.name %></h1>
+    <% if @list.photo.attached? %>
+      <%= cl_image_tag @list.photo.key, height: 400, crop: :fill %>
+    <% end %>
   </div>
 
   <%= link_to "← Back to all lists", lists_path, class: "btn btn-secondary mb-3" %>
