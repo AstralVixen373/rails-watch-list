@@ -1,0 +1,91 @@
+<div class="container mt-4">
+  <div class="d-flex justify-content-between align-items-center">
+    <h1><%= @list.name %></h1>
+  </div>
+
+  <%= link_to "← Back to all lists", lists_path, class: "btn btn-secondary mb-3" %>
+
+  <%= link_to "Add a movie", new_list_bookmark_path(@list), class: "btn btn-primary mb-3" %>
+
+  <%= link_to "Delete this list",
+      list_path(@list),
+      data: {
+        turbo_method: :delete,
+        turbo_confirm: "Are you sure?"
+      },
+      class: "btn btn-danger mb-3  text-white" %>
+</div>
+
+<hr>
+
+ <div class="media-cards mt-4">
+  <% @list.bookmarks.each do |bookmark| %>
+    <div class="media-card">
+      <img
+        src="<%= bookmark.movie.poster_url %>"
+        alt="<%= bookmark.movie.title %>"
+        width="200"
+      >
+
+      <div class="media-card-info mt-3">
+          <h2>
+            <%= bookmark.movie.title %>
+            • <%= bookmark.movie.rating %>/10
+          </h2>
+
+          <p><%= bookmark.movie.overview %></p>
+
+          <p>
+            <strong>Comment:</strong>
+            <%= bookmark.comment %>
+          </p>
+
+          <%= link_to "Delete",
+            bookmark_path(bookmark),
+            data: {
+              turbo_method: :delete,
+              turbo_confirm: "Delete bookmark?"
+            },
+            class: "btn btn-danger btn-sm text-white" %>
+        </div>
+    </div>
+  <% end %>
+<hr>
+
+<h2>Add a review</h2>
+
+<%= simple_form_for [@list, @review] do |f| %>
+  <%= f.input :comment %>
+
+  <%= f.input :rating,
+      collection: 0..5 %>
+
+  <%= f.submit "Submit review",
+      class: "btn btn-primary" %>
+<% end %>
+
+<hr>
+
+<h2>Reviews</h2>
+
+<% if @list.reviews.empty? %>
+  <p>No reviews yet.</p>
+<% else %>
+
+  <% @list.reviews.each do |review| %>
+
+    <div class="review-card">
+
+      <p class="mb-1">
+        <% review.rating.times do %>
+          ⭐
+        <% end %>
+      </p>
+
+      <p><%= review.comment %></p>
+
+    </div>
+
+  <% end %>
+
+<% end %>

@@ -1,0 +1,30 @@
+.media-card {
+  overflow: hidden;
+  background: white;
+  box-shadow: 0 0 15px rgba(0,0,0,0.2);
+
+  display: flex;
+
+  margin-bottom: 24px;
+  border-radius: 8px;
+  transition: 0.3s ease;
+}
+
+.media-card img {
+  height: 100%;
+  width: 200px;
+  object-fit: cover;
+}
+
+.media-card-info {
+  padding: 16px;
+}
+
+.media-card-info h2 {
+  font-size: 22px;
+  font-weight: bold;
+}
+
+.media-card:hover {
+  transform: scale(1.03);
+}
