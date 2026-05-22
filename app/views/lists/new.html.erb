@@ -2,9 +2,8 @@
 
 <%= link_to "← Back", lists_path, class: "btn btn-secondary mb-3" %>
 
-<%= f.input :photo, as: :file %>
-
 <%= simple_form_for @list do |f| %>
   <%= f.input :name %>
-  <%= f.submit %>
+  <%= f.input :photo, as: :file %>
+  <%= f.submit class: "btn btn-primary" %>
 <% end %>
